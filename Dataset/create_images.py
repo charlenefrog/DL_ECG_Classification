@@ -18,16 +18,20 @@ from pyts.image import GramianAngularField, MarkovTransitionField
 from sklearn.metrics.pairwise import pairwise_distances
 import cv2
 
+root_path = "Processed"
 partition = 'dev'
 
-pickle_in = open(os.path.join("Processed", "X_" + partition + "_processed.pickle"),"rb")
+pickle_in = open(os.path.join(root_path, "X_" + partition + "_processed.pickle"),"rb")
 X_train_processed = pickle.load(pickle_in)
 
-
-pickle_in = open(os.path.join("Processed", "y_" + partition + "_processed.pickle"),"rb")
+pickle_in = open(os.path.join(root_path, "y_" + partition + "_processed.pickle"),"rb")
 y_train_processed = pickle.load(pickle_in)
 
 save_dir = os.path.join('Images', partition)
+
+os.makedirs(os.path.join(save_dir, "labels"), exist_ok=True)
+os.makedirs(os.path.join(save_dir, "labels", "images"), exist_ok=True)
+
 
 def ecgtoimage(X,y,save_dir):
     #band pass filter
